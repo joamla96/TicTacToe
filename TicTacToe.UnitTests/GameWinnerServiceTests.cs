@@ -1,5 +1,4 @@
-﻿
-using System;
+﻿using System;
 using NUnit.Framework;
 using TicTacToe.Services;
 
@@ -13,9 +12,7 @@ namespace TicTacToeTests {
 		[SetUp]
 		public void SetupUnitTests() {
 			_gameWinnerService = new GameWinnerService();
-			_gameBoard = new char[3, 3]{ {' ', ' ', ' '},
-										 {' ', ' ', ' '},
-										 {' ', ' ', ' '}};
+			_gameBoard = _gameWinnerService.GetGameBoard();
 		}
 
 		[Test]
@@ -24,6 +21,7 @@ namespace TicTacToeTests {
 			var actual = _gameWinnerService.Validate(_gameBoard);
 			Assert.AreEqual(expected, actual);
 		}
+
 		[Test]
 		public void PlayerWithAllSpacesInTopRowIsWinner() {
 			const char expected = 'X';
@@ -33,6 +31,7 @@ namespace TicTacToeTests {
 			var actual = _gameWinnerService.Validate(_gameBoard);
 			Assert.AreEqual(expected.ToString(), actual.ToString());
 		}
+
 		[Test]
 		public void PlayerWithAllSpacesInBottomRowIsWinner() {
 			const char expected = 'X';
@@ -42,6 +41,7 @@ namespace TicTacToeTests {
 			var actual = _gameWinnerService.Validate(_gameBoard);
 			Assert.AreEqual(expected.ToString(), actual.ToString());
 		}
+
 		[Test]
 		public void PlayerWithAllSpacesInMiddleRowIsWinner() {
 			const char expected = 'X';
@@ -51,6 +51,7 @@ namespace TicTacToeTests {
 			var actual = _gameWinnerService.Validate(_gameBoard);
 			Assert.AreEqual(expected.ToString(), actual.ToString());
 		}
+
 		[Test]
 		public void PlayerWithAllSpacesInFirstColumnIsWinner() {
 			const char expected = 'X';
@@ -60,6 +61,7 @@ namespace TicTacToeTests {
 			var actual = _gameWinnerService.Validate(_gameBoard);
 			Assert.AreEqual(expected.ToString(), actual.ToString());
 		}
+
 		[Test]
 		public void PlayerWithAllSpacesInThirdColumnIsWinner() {
 			const char expected = 'X';
@@ -69,6 +71,7 @@ namespace TicTacToeTests {
 			var actual = _gameWinnerService.Validate(_gameBoard);
 			Assert.AreEqual(expected.ToString(), actual.ToString());
 		}
+
 		[Test]
 		public void PlayerWithAllSpacesInSecondColumnIsWinner() {
 			const char expected = 'X';
@@ -78,6 +81,7 @@ namespace TicTacToeTests {
 			var actual = _gameWinnerService.Validate(_gameBoard);
 			Assert.AreEqual(expected.ToString(), actual.ToString());
 		}
+
 		[Test]
 		public void PlayerWithThreeInARowDiagonallyDownAndToRightIsWinner() {
 			const char expected = 'X';
@@ -87,6 +91,7 @@ namespace TicTacToeTests {
 			var actual = _gameWinnerService.Validate(_gameBoard);
 			Assert.AreEqual(expected.ToString(), actual.ToString());
 		}
+
 		[Test]
 		public void PlayerWithThreeInARowDiagonallyTopAndToLeftIsWinner() {
 			const char expected = 'X';
