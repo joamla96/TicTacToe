@@ -2,7 +2,6 @@
 using NUnit.Framework;
 using TicTacToe.Services;
 
-
 namespace TicTacToe.UnitTests
 {
 	[TestFixture]
