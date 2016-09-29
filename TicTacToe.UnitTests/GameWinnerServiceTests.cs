@@ -2,9 +2,16 @@
 
 namespace TicTacToe.UnitTests
 {
-    public class Class1GameWinnerServiceTests {
-        public GameWinnerServiceTests()
-        {
-        }
-    }
+	[TestFixture]
+	public class GameWinnerServiceTests {
+		[Test]
+		public void NeitherPlayerHasThreeInARow() {
+			const char expected = ' ';
+			var gameBoard = new char[3, 3] { {' ', ' ', ' '},
+											{' ', ' ', ' '},
+											{' ', ' ', ' '}};
+			var actual = gameWinnerService.Validate(gameBoard);
+			Assert.AreEqual(expected, actual);
+		}
+	}
 }
