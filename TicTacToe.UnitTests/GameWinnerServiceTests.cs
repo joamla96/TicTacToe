@@ -11,9 +11,18 @@ namespace TicTacToeTests {
 
 		[SetUp]
 		public void SetupUnitTests() {
-			_gameWinnerService = new GameWinnerService();
-			_gameBoard = _gameWinnerService.GetGameBoard();
+			_gameWinnerService = new GameWinnerService(3,3,3);
+			_gameBoard = new char[3, 3] {
+				{' ', ' ', ' '},
+				{' ', ' ', ' '},
+				{' ', ' ', ' '}
+			};
 		}
+		[Test]
+		public void CheckGameBoard() {
+			Assert.AreEqual(_gameBoard, _gameWinnerService.GetGameBoard());
+		}
+
 
 		[Test]
 		public void NeitherPlayerHasThreeInARow() {
@@ -24,22 +33,44 @@ namespace TicTacToeTests {
 
 		[Test]
 		public void PlayerWithAllSpacesInTopRowIsWinner() {
-			const char expected = 'X';
-			for (int i = 0; i < 3; i++) {
-				_gameBoard[0, i] = expected;
-			}
+			char expected = 'X';
+			_gameBoard = new char[3, 3] {
+				{'X', 'X', 'X'},
+				{' ', ' ', ' '},
+				{' ', ' ', ' '}
+			};
 			var actual = _gameWinnerService.Validate(_gameBoard);
 			Assert.AreEqual(expected.ToString(), actual.ToString());
+
+			char expected2 = 'O';
+			_gameBoard = new char[3, 3] {
+				{'O', 'O', 'O'},
+				{' ', ' ', ' '},
+				{' ', ' ', ' '}
+			};
+			var actual2 = _gameWinnerService.Validate(_gameBoard);
+			Assert.AreEqual(expected2.ToString(), actual2.ToString());
 		}
 
 		[Test]
 		public void PlayerWithAllSpacesInBottomRowIsWinner() {
-			const char expected = 'X';
-			for (int i = 0; i < 3; i++) {
-				_gameBoard[2, i] = expected;
-			}
+			char expected = 'X';
+			_gameBoard = new char[3, 3] {
+				{' ', ' ', ' '},
+				{' ', ' ', ' '},
+				{'X', 'X', 'X'}
+			};
 			var actual = _gameWinnerService.Validate(_gameBoard);
 			Assert.AreEqual(expected.ToString(), actual.ToString());
+
+			char expected2 = 'O';
+			_gameBoard = new char[3, 3] {
+				{' ', ' ', ' '},
+				{' ', ' ', ' '},
+				{'O', 'O', 'O'}
+			};
+			var actual2 = _gameWinnerService.Validate(_gameBoard);
+			Assert.AreEqual(expected2.ToString(), actual2.ToString());
 		}
 
 		[Test]
