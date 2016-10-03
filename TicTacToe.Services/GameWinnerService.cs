@@ -22,11 +22,11 @@ namespace TicTacToe.Services {
 
 		public char Validate(char[,] gameBoard) {
 
-			var currentWinningSymbol = CheckForThreeInARowInHorizontalRow(gameBoard);
+			var currentWinningSymbol = CheckForWInARowInHorizontalRow(gameBoard);
 			if (currentWinningSymbol != SYMBOL_FOR_NO_WINNER) {
 				return currentWinningSymbol;
 			}
-			currentWinningSymbol = CheckForThreeInARowInVerticalColumn(gameBoard);
+			currentWinningSymbol = CheckForWInARowInVerticalColumn(gameBoard);
 			if (currentWinningSymbol != SYMBOL_FOR_NO_WINNER) {
 				return currentWinningSymbol;
 			}
@@ -34,7 +34,7 @@ namespace TicTacToe.Services {
 			return currentWinningSymbol;
 		}
 
-		private char CheckForThreeInARowInHorizontalRow(char[,] gameBoard) {
+		private char CheckForWInARowInHorizontalRow(char[,] gameBoard) {
 			char CheckChar;
 			int Counter;
 
@@ -43,14 +43,16 @@ namespace TicTacToe.Services {
 				CheckChar = gameBoard[i, 0];
 				for(int j = 0; j < this.Y_DIM; j++) { // for each colum in row (Y)
 					if (gameBoard[i, j] == CheckChar) Counter++;
+					else {
+						CheckChar = gameBoard[j, i]; Counter = 0;
+						if (Counter == this.WIN_COND && CheckChar != SYMBOL_FOR_NO_WINNER) { return CheckChar; }
+					}
 				}
-
-				if(Counter == this.WIN_COND && CheckChar != SYMBOL_FOR_NO_WINNER) { return CheckChar; }
 			}
 			return SYMBOL_FOR_NO_WINNER;
 		}
 
-		private char CheckForThreeInARowInVerticalColumn(char[,] gameBoard) {
+		private char CheckForWInARowInVerticalColumn(char[,] gameBoard) {
 			char CheckChar;
 			int Counter;
 
@@ -59,9 +61,11 @@ namespace TicTacToe.Services {
 				CheckChar = gameBoard[0, i];
 				for (int j = 0; j < this.X_DIM; j++) { // for each colum in row (X)
 					if (gameBoard[j, i] == CheckChar) Counter++;
+					else {
+						CheckChar = gameBoard[j, i]; Counter = 0;
+						if (Counter == this.WIN_COND && CheckChar != SYMBOL_FOR_NO_WINNER) { return CheckChar; }
+					}
 				}
-
-				if (Counter == this.WIN_COND && CheckChar != SYMBOL_FOR_NO_WINNER) { return CheckChar; }
 			}
 			return SYMBOL_FOR_NO_WINNER;
 		}
