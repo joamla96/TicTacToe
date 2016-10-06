@@ -30,7 +30,13 @@ namespace TicTacToe.Services {
 			if (currentWinningSymbol != SYMBOL_FOR_NO_WINNER) {
 				return currentWinningSymbol;
 			}
-			currentWinningSymbol = CheckDiagonally(gameBoard);
+			currentWinningSymbol = CheckDiagonallyTopDown(gameBoard);
+			if(currentWinningSymbol != SYMBOL_FOR_NO_WINNER) {
+				return currentWinningSymbol;
+			}
+
+			currentWinningSymbol = CheckDiagonallyDownTop(gameBoard);
+
 			return currentWinningSymbol;
 		}
 
@@ -100,37 +106,127 @@ namespace TicTacToe.Services {
 			return SYMBOL_FOR_NO_WINNER;
 		}
 
-		private char CheckDiagonally(char[,] gameBoard) {
-			int CurX = 0;
-			int CurY = 0;
+		private char CheckDiagonallyTopDown(char[,] gameBoard) {
+			int CurX;
+			int CurY;
 
+			char thisChar;
 			char lastChar = ' ';
 			int Count = 0;
 
+			bool runX;
+			bool runY;
+
 			for(int i = 0; i < X_DIM; i++) {
-				char thisChar = gameBoard[i, CurY];
-				if (thisChar == lastChar) {
-					if(thisChar != SYMBOL_FOR_NO_WINNER) Count++;
-					if (Count == WIN_COND) return thisChar;
-				} else Count = 0;
+				CurX = i;
+				CurY = 0;
+				lastChar = gameBoard[CurX, CurY];
+				runX = true;
+				while (runX) {
+					thisChar = gameBoard[CurX, CurY];
 
-				CurY++;
-				lastChar = thisChar;
+					if (thisChar == lastChar && thisChar != SYMBOL_FOR_NO_WINNER) {
+						Count++;
+						if (Count == WIN_COND) return thisChar;
+					} else Count = 0;
 
-				if (CurY > Y_DIM) break;
+					lastChar = thisChar;
+
+					CurX++;
+					CurY++;
+					if (CurX >= X_DIM || CurY >= Y_DIM) {
+						runX = false;
+					}
+				}
 			}
 
-			for (int j = 1; j < X_DIM; j++) {
-				char thisChar = gameBoard[CurX, j];
-				if (thisChar == lastChar) {
-					if (thisChar != SYMBOL_FOR_NO_WINNER) Count++;
-					if (Count == WIN_COND) return thisChar;
-				} else Count = 0;
+			for (int j = 1; j < Y_DIM; j++) {
+				CurX = 0;
+				CurY = j;
+				lastChar = gameBoard[CurX, CurY];
+				runY = true;
+				while (runY) {
+					thisChar = gameBoard[CurX, CurY];
 
-				CurX++;
-				lastChar = thisChar;
+					if (thisChar == lastChar && thisChar != SYMBOL_FOR_NO_WINNER) {
+						Count++;
+						if (Count == WIN_COND) return thisChar;
+					} else Count = 0;
 
-				if (CurX > X_DIM) break;
+					lastChar = thisChar;
+
+					CurX++;
+					CurY++;
+					if (CurX >= X_DIM || CurY >= Y_DIM) {
+						runY = false;
+					}
+				}
+			}
+
+			return SYMBOL_FOR_NO_WINNER;
+		}
+
+		private char CheckDiagonallyDownTop(char[,] gameBoard) {
+			int CurX;
+			int CurY;
+
+			char thisChar;
+			char lastChar = ' ';
+			int Count = 0;
+
+			bool runX;
+			bool runY;
+
+			for (int i = 0; i < X_DIM; i++) {
+				CurX = i;
+				CurY = Y_DIM-1;
+				lastChar = gameBoard[CurX, CurY];
+
+				Console.WriteLine("i: "+ i +" - - -");
+				runX = true;
+				while (runX) {
+					Console.WriteLine(CurX + " X " + CurY);
+					thisChar = gameBoard[CurX, CurY];
+
+					if (thisChar == lastChar && thisChar != SYMBOL_FOR_NO_WINNER) {
+						Count++;
+						if (Count == WIN_COND) return thisChar;
+					} else Count = 0;
+
+					lastChar = thisChar;
+
+					CurX++;
+					CurY--;
+					if (CurX >= X_DIM || CurY < 0) {
+						runX = false;
+					}
+				}
+			}
+
+			for (int j = Y_DIM - 2; j >= 0; j--) {
+				CurX = 0;
+				CurY = j;
+				lastChar = gameBoard[CurX, CurY];
+
+				Console.WriteLine("j: " + j + " - - -");
+				runY = true;
+				while (runY) {
+					Console.WriteLine(CurX + " Y " + CurY);
+					thisChar = gameBoard[CurX, CurY];
+
+					if (thisChar == lastChar && thisChar != SYMBOL_FOR_NO_WINNER) {
+						Count++;
+						if (Count == WIN_COND) return thisChar;
+					} else Count = 0;
+
+					lastChar = thisChar;
+
+					CurX++;
+					CurY--;
+					if (CurX >= X_DIM || CurY < 0) {
+						runY = false;
+					}
+				}
 			}
 
 			return SYMBOL_FOR_NO_WINNER;
