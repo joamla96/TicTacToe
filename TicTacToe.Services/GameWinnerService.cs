@@ -3,19 +3,19 @@
 namespace TicTacToe.Services {
 
 	public class GameWinnerService : IGameWinnerService {
-
-
+		
 		private const char SYMBOL_FOR_NO_WINNER = ' ';
 		private const char SYMBOL_P1 = 'X';
 		private const char SYMBOL_P2 = 'O';
 		private int X_DIM = 3;
 		private int Y_DIM = 3;
 		private int WIN_COND = 3;
+		private char[,] gameBoard;
 
 		public GameWinnerService(int X, int Y, int W) {
-			//this.X_DIM = X;
-			//this.Y_DIM = Y;
-			//this.WIN_COND = W;
+			this.X_DIM = X;
+			this.Y_DIM = Y;
+			this.WIN_COND = W;
 		}
 
 		public GameWinnerService() {  }
@@ -233,14 +233,16 @@ namespace TicTacToe.Services {
 		}
 
 		public char[,] GetGameBoard() {
-			char[,] gameBoard = new char[this.X_DIM, this.Y_DIM];
-			for(int i = 0; i < this.X_DIM; i++) {
-				for(int j = 0; j < this.Y_DIM; j++) {
-					gameBoard[i, j] = ' '; 
+			if (this.gameBoard == null || gameBoard.Length == 0) {
+				this.gameBoard = new char[this.X_DIM, this.Y_DIM];
+				for (int i = 0; i < this.X_DIM; i++) {
+					for (int j = 0; j < this.Y_DIM; j++) {
+						this.gameBoard[i, j] = ' ';
+					}
 				}
 			}
 
-			return gameBoard;
+			return this.gameBoard;
 		}
 	}
 }
