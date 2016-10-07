@@ -12,10 +12,10 @@ namespace TicTacToe.Services {
 		private int WIN_COND = 3;
 		private char[,] gameBoard;
 
-		public GameWinnerService(int X, int Y, int W) {
-			this.X_DIM = X;
-			this.Y_DIM = Y;
-			this.WIN_COND = W;
+		public GameWinnerService(int SizeX, int SizeY, int WinCond) {
+			this.X_DIM = SizeX;
+			this.Y_DIM = SizeY;
+			this.WIN_COND = WinCond;
 		}
 
 		public GameWinnerService() {  }
@@ -233,16 +233,14 @@ namespace TicTacToe.Services {
 		}
 
 		public char[,] GetGameBoard() {
-			if (this.gameBoard == null || gameBoard.Length == 0) {
-				this.gameBoard = new char[this.X_DIM, this.Y_DIM];
-				for (int i = 0; i < this.X_DIM; i++) {
-					for (int j = 0; j < this.Y_DIM; j++) {
-						this.gameBoard[i, j] = ' ';
-					}
+			char[,] gameBoard = new char[this.X_DIM, this.Y_DIM];
+			for (int i = 0; i < this.X_DIM; i++) {
+				for (int j = 0; j < this.Y_DIM; j++) {
+					gameBoard[i, j] = ' ';
 				}
 			}
 
-			return this.gameBoard;
+			return gameBoard;
 		}
 	}
 }

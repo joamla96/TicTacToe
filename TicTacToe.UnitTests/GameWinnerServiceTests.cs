@@ -36,8 +36,8 @@ namespace TicTacToeTests {
 			char expected = 'X';
 			_gameBoard = new char[3, 3] {
 				{'X', 'X', 'X'},
-				{' ', ' ', ' '},
-				{' ', ' ', ' '}
+				{' ', 'O', 'O'},
+				{'O', ' ', 'O'}
 			};
 			var actual = _gameWinnerService.Validate(_gameBoard);
 			Assert.AreEqual(expected.ToString(), actual.ToString());
