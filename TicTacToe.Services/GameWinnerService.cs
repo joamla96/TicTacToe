@@ -10,7 +10,6 @@ namespace TicTacToe.Services {
 		private int X_DIM = 3;
 		private int Y_DIM = 3;
 		private int WIN_COND = 3;
-		private char[,] gameBoard;
 
 		public GameWinnerService(int SizeX, int SizeY, int WinCond) {
 			this.X_DIM = SizeX;
@@ -86,7 +85,6 @@ namespace TicTacToe.Services {
 			return SYMBOL_FOR_NO_WINNER;
 		}
 
-		//TODO: REFACTOR FOR ARBRITARY SIZE
 		private char CheckForThreeInARowDiagonally(char[,] gameBoard) {
 			var cellTwoChar = gameBoard[1, 1];
 			int a = 0;
@@ -182,10 +180,8 @@ namespace TicTacToe.Services {
 				CurY = Y_DIM-1;
 				lastChar = gameBoard[CurX, CurY];
 
-				Console.WriteLine("i: "+ i +" - - -");
 				runX = true;
 				while (runX) {
-					Console.WriteLine(CurX + " X " + CurY);
 					thisChar = gameBoard[CurX, CurY];
 
 					if (thisChar == lastChar && thisChar != SYMBOL_FOR_NO_WINNER) {
@@ -208,10 +204,8 @@ namespace TicTacToe.Services {
 				CurY = j;
 				lastChar = gameBoard[CurX, CurY];
 
-				Console.WriteLine("j: " + j + " - - -");
 				runY = true;
 				while (runY) {
-					Console.WriteLine(CurX + " Y " + CurY);
 					thisChar = gameBoard[CurX, CurY];
 
 					if (thisChar == lastChar && thisChar != SYMBOL_FOR_NO_WINNER) {
